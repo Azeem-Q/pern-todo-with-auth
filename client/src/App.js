@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 
 // components
@@ -14,6 +14,11 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const setAuth = (boolean) => {
+    setIsAuthenticated(boolean);
+  };
   return (
     <Fragment>
       <Router>
@@ -22,17 +27,35 @@ function App() {
             <Route
               exact
               path="/login"
-              render={(props) => <Login {...props} />}
+              element={
+                !isAuthenticated ? (
+                  <Login setAuth={setAuth} />
+                ) : (
+                  <Navigate to="/dashboard" />
+                )
+              }
             />
             <Route
               exact
               path="/register"
-              render={(props) => <Register {...props} />}
+              element={
+                !isAuthenticated ? (
+                  <Register setAuth={setAuth} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
             />
             <Route
               exact
               path="/dashboard"
-              render={(props) => <Dashboard {...props} />}
+              element={
+                isAuthenticated ? (
+                  <Dashboard setAuth={setAuth} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
             />
           </Routes>
         </div>
