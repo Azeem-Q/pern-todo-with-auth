@@ -1,10 +1,23 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
-const Login = ({setAuth}) => {
+const Login = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Login</h1>
-      <button onClick={() => setAuth(true)}>Authenticate</button>
+      <form>
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          className="form-control"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          className="form-control"
+        />
+      </form>
     </Fragment>
   );
 };
