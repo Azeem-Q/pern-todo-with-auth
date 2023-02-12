@@ -11,17 +11,30 @@ const Dashboard = ({ setAuth }) => {
       });
       const parseRes = await response.json();
 
-      console.log(parseRes);
+      setName(parseRes.user_name);
     } catch (err) {
       console.error(err.message);
     }
   };
+
+  const logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setAuth(false);
+  };
+
   useEffect(() => {
     getName();
   });
   return (
     <Fragment>
-      <h1>Dashboard</h1>
+      <h1>Dashboard {name}</h1>
+      <button
+        className="btn btn-primary"
+        onClick={(e) => logout(e)}
+      >
+        Logout
+      </button>
     </Fragment>
   );
 };
