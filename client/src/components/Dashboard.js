@@ -25,7 +25,7 @@ const Dashboard = ({ setAuth }) => {
 
   useEffect(() => {
     getName();
-  });
+  }, []);
   return (
     <Fragment>
       <h1>Dashboard {name}</h1>
