@@ -32,7 +32,7 @@ const Login = ({ setAuth }) => {
         toast.success("login successfully!");
       } else {
         setAuth(false);
-        toast.error(parseRes);
+        toast.error(parseRes, { toastId: parseRes });
       }
     } catch (err) {
       console.error(err.message);
