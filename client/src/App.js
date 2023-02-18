@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./App.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   BrowserRouter as Router,
@@ -84,7 +84,7 @@ function App() {
       </Router>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick
