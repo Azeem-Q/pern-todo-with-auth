@@ -6,7 +6,7 @@ const pool = new Pool({
   password: process.env.DB_PASS,
   host: "localhost",
   port: 5432,
-  database: "jwtauth",
+  database: "authtodolist",
 });
 
 module.exports = pool;

@@ -1,23 +1,22 @@
-CREATE DATABASE jwtAuth;
+CREATE DATABASE authtodolist;
+
+-- users
 
 CREATE Table
     users(
-        user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+        user_id UUID DEFAULT uuid_generate_v4(),
         user_name VARCHAR(255) NOT NULL,
-        user_email VARCHAR(255) NOT NULL,
-        user_password VARCHAR(255) NOT NULL
+        user_email VARCHAR(255) NOT NULL UNIQUE,
+        user_password VARCHAR(255) NOT NULL,
+        PRIMARY KEY (user_id)
     );
 
---insert fake users
+-- todos
 
-INSERT INTO
-    users(
-        user_name,
-        user_email,
-        user_password
-    )
-VALUES (
-        'henry',
-        'henryly213@gmail.com',
-        'kthl8822'
-    );
+CREATE TABLE todos(
+    todo_id SERIAL,
+    user_id UUID,
+    description VARCHAR(255) NOT NULL,
+    PRIMARY KEY (todo_id),
+    Foreign Key (user_id) REFERENCES users(user_id)
+);
