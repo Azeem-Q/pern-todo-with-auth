@@ -44,8 +44,9 @@ router.put("/todos/:id", authorization, async (req, res) => {
     );
 
     if (updateTodo.rows.length === 0) {
-      return res.json('This todo is not yours')
+      return res.json("This todo is not yours");
     }
+
     res.json("Todo was updated");
   } catch (err) {
     console.error(err.message);
@@ -54,12 +55,18 @@ router.put("/todos/:id", authorization, async (req, res) => {
 
 // delete a todo
 
-router.delete("/todos/:id", async (req, res) => {
+router.delete("/todos/:id", authorization, async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteTodo = await pool.query("DELETE FROM todos WHERE todo_id = $1 AND user_id = $2 RETURNING *", [
-      id,
-    ]);
+    const deleteTodo = await pool.query(
+      "DELETE FROM todos WHERE todo_id = $1 AND user_id = $2 RETURNING *",
+      [id, req.user.id]
+    );
+
+    if (deleteTodo.rows.length === 0) {
+      return res.json("This todo is not yours");
+    }
+
     res.json("Todo was deleted!");
   } catch (err) {
     console.error(err.message);
