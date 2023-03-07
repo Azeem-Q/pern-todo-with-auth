@@ -1,16 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
 
-const ListTodos = () => {
+const ListTodos = ({ allTodos }) => {
+  console.log(allTodos);
   const [todos, setTodos] = useState([]);
 
   //delete todo function
 
   const deleteTodo = async (id) => {
     try {
-      const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "DELETE",
-      });
+      const deleteTodo = await fetch(
+        `http://localhost:5000/dashboard/todos/${id}`,
+        {
+          method: "DELETE",
+          headers: { token: localStorage.token },
+        }
+      );
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (err) {
@@ -18,7 +23,7 @@ const ListTodos = () => {
     }
   };
 
-  const getTodos = async () => {
+  /* const getTodos = async () => {
     try {
       const response = await fetch("http://localhost:5000/todos");
       const jsonData = await response.json();
@@ -27,11 +32,11 @@ const ListTodos = () => {
     } catch (err) {
       console.error(err.message);
     }
-  };
+  }; */
 
   useEffect(() => {
-    getTodos();
-  }, []);
+    setTodos(allTodos);
+  }, [allTodos]);
 
   return (
     <Fragment>

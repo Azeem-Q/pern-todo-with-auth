@@ -9,16 +9,18 @@ import InputTodo from "./todolist/InputTodo";
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
+  const [allTodos, setAllTodos] = useState([]);
 
-  const getName = async () => {
+  const getProfile = async () => {
     try {
       const response = await fetch("http://localhost:5000/dashboard", {
         method: "GET",
         headers: { token: localStorage.token },
       });
-      const parseRes = await response.json();
+      const parseData = await response.json();
 
-      setName(parseRes.user_name);
+      setAllTodos(parseData)
+      setName(parseData[0].user_name);
     } catch (err) {
       console.error(err.message);
     }
@@ -32,7 +34,7 @@ const Dashboard = ({ setAuth }) => {
   };
 
   useEffect(() => {
-    getName();
+    getProfile();
   }, []);
   return (
     <Fragment>
@@ -46,7 +48,7 @@ const Dashboard = ({ setAuth }) => {
         </button>
       </div>
       <InputTodo />
-      <ListTodos />
+      <ListTodos allTodos={allTodos} />
     </Fragment>
   );
 };
