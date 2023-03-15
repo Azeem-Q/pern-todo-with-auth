@@ -17,14 +17,11 @@ const EditTodo = ({ todo, setTodosChange }) => {
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.token);
-      const response = await fetch(
-        `http://localhost:5000/dashboard/todos/${todo.todo_id}`,
-        {
-          method: "PUT",
-          headers: myHeaders,
-          body: JSON.stringify(body),
-        }
-      );
+      await fetch(`http://localhost:5000/dashboard/todos/${todo.todo_id}`, {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify(body),
+      });
 
       setTodosChange(true);
       // window.location = "/";
@@ -36,7 +33,6 @@ const EditTodo = ({ todo, setTodosChange }) => {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       updateDescription(e);
-      
     }
   };
 

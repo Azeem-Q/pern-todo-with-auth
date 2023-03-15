@@ -9,13 +9,10 @@ const ListTodos = ({ allTodos, setTodosChange }) => {
 
   const deleteTodo = async (id) => {
     try {
-      const deleteTodo = await fetch(
-        `http://localhost:5000/dashboard/todos/${id}`,
-        {
-          method: "DELETE",
-          headers: { token: localStorage.token },
-        }
-      );
+      await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
+        method: "DELETE",
+        headers: { token: localStorage.token },
+      });
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (err) {
