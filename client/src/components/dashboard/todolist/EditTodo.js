@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useRef } from "react";
 
-const EditTodo = ({ todo }) => {
+const EditTodo = ({ todo, setTodosChange }) => {
   const [description, setDescription] = useState(todo.description);
 
   const modalInput = useRef(null);
@@ -14,15 +14,20 @@ const EditTodo = ({ todo }) => {
   const updateDescription = async (e) => {
     try {
       const body = { description };
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("token", localStorage.token);
       const response = await fetch(
-        `http://localhost:5000/todos/${todo.todo_id}`,
+        `http://localhost:5000/dashboard/todos/${todo.todo_id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: myHeaders,
           body: JSON.stringify(body),
         }
       );
-      window.location = "/";
+
+      setTodosChange(true);
+      // window.location = "/";
     } catch (err) {
       console.error(err.message);
     }
@@ -31,6 +36,7 @@ const EditTodo = ({ todo }) => {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       updateDescription(e);
+      
     }
   };
 

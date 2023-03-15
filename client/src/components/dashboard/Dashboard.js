@@ -10,6 +10,7 @@ import InputTodo from "./todolist/InputTodo";
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
   const [allTodos, setAllTodos] = useState([]);
+  const [todosChange, setTodosChange] = useState(false);
 
   const getProfile = async () => {
     try {
@@ -19,7 +20,7 @@ const Dashboard = ({ setAuth }) => {
       });
       const parseData = await response.json();
 
-      setAllTodos(parseData)
+      setAllTodos(parseData);
       setName(parseData[0].user_name);
     } catch (err) {
       console.error(err.message);
@@ -35,7 +36,8 @@ const Dashboard = ({ setAuth }) => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+    setTodosChange(false);
+  }, [todosChange]);
   return (
     <Fragment>
       <div className="d-flex mt-5 justify-content-around">
@@ -47,8 +49,11 @@ const Dashboard = ({ setAuth }) => {
           Logout
         </button>
       </div>
-      <InputTodo />
-      <ListTodos allTodos={allTodos} />
+      <InputTodo setTodosChange={setTodosChange} />
+      <ListTodos
+        allTodos={allTodos}
+        setTodosChange={setTodosChange}
+      />
     </Fragment>
   );
 };
