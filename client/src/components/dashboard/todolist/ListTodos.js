@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
 
 const ListTodos = ({ allTodos, setTodosChange }) => {
-  console.log(allTodos);
   const [todos, setTodos] = useState([]);
 
   //delete todo function

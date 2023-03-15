@@ -10,15 +10,11 @@ const InputTodo = ({ setTodosChange }) => {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.token);
       const body = { description };
-      const response = await fetch("http://localhost:5000/dashboard/todos", {
+      await fetch("http://localhost:5000/dashboard/todos", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
       });
-
-      const parseRes = await response.json();
-
-      console.log(parseRes);
 
       setTodosChange(true);
       setDescription("");
