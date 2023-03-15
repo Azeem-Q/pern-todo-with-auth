@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 //components
 
 import ListTodos from "./todolist/ListTodos";
-import EditTodo from "./todolist/EditTodo";
 import InputTodo from "./todolist/InputTodo";
 
 const Dashboard = ({ setAuth }) => {
